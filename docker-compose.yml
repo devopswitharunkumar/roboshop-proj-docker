@@ -51,15 +51,18 @@ services:
     - catalogue
     - user
     - cart
-    
-  shipping:
-    image: shipping:v1
-    container_name: shipping
-    networks:
-    - roboshop
-  
+    - shipping
+      
   mysql:
     image: mysql:v1
     container_name: mysql
 
 #if u dont give container-name docker creates automatically like roboshop-docker-cataloge:v1 like that give by default
+
+  shipping:
+    image: shipping:v1
+    container_name: shipping
+    networks:
+    - roboshop
+    depends_on: 
+    - mysql
