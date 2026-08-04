@@ -4,9 +4,13 @@ networks:
 
 volumes:
   mongodb:
+    name: mongodb
   redis:
+    name: redis
   mysql:
+    name: remysqldis
   rabbitmq:
+    name: rabbitmq
 
 services:
   mongodb:
