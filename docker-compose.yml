@@ -2,11 +2,11 @@ networks:
   roboshop:
     external: true
 
-# volumes:
-#  - mongodb
-#  - redis
-#  - mysql
-#  - rabbitmq
+volumes:
+  mongodb:
+  redis:
+  mysql:
+  rabbitmq:
 
 services:
   mongodb:
@@ -33,9 +33,7 @@ services:
     networks:
       - roboshop
     volumes:
-      - source: redis
-        target: /data
-        type: volume
+      - redis:/data
   
   user:
     image: user:v1
@@ -66,10 +64,7 @@ services:
     - MYSQL_PASSWORD=RoboShop@1
     - MYSQL_DATABASE=cities
     volumes:
-      - source: mysql
-        target: /var/lib/mysql
-        type: volume
-
+      - mysql:/var/lib/mysql
 
 #if u dont give container-name docker creates automatically like roboshop-docker-cataloge:v1 like that give by default
 
