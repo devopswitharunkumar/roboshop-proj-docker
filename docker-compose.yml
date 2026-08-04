@@ -1,6 +1,7 @@
 networks:
   default:
-    name: roboshop
+    external:
+      name: roboshop
 
 #internal --> Docker Compose automatically creates the network when you run docker compose up and automatically deletes it when you run docker compose down.Scope: It is designed specifically for the containers defined inside that single docker-compose.yml file.
 #external --> Docker Compose will not create or delete this network. It expects the network to already exist on the host machine (usually created manually via docker network create network_name).Scope: This is used so that multiple completely separate projects or standalone containers can connect to each other and communicate. If you run docker compose down, the containers stop, but the external network stays alive.
@@ -10,25 +11,27 @@ services:
     image: mongodb:v1
     container_name: mongodb
     networks:
-    - roboshop
+      - roboshop
   
   catalogue:  
     image: catalogue:v1
     container_name: catalogue
     networks:
-    - roboshop
+      - roboshop
     depends_on:
     - mongodb
   
   redis:
     image: redis
     container_name: redis
+    networks:
+      - roboshop
   
   user:
     image: user:v1
     container_name: user
     networks:
-    - roboshop
+      - roboshop
     depends_on:
       - redis
       - mongodb
@@ -37,7 +40,7 @@ services:
     image: cart:v1
     container_name: cart
     networks:
-    - roboshop
+      - roboshop
     depends_on:
       - redis
       - mongodb
@@ -46,7 +49,7 @@ services:
     image: mysql:v1
     container_name: mysql
     networks:
-    - roboshop
+      - roboshop
 
 #if u dont give container-name docker creates automatically like roboshop-docker-cataloge:v1 like that give by default
 
@@ -54,7 +57,7 @@ services:
     image: shipping:v1
     container_name: shipping
     networks:
-    - roboshop
+      - roboshop
     depends_on: 
     - mysql
     - cart
@@ -63,7 +66,7 @@ services:
     image: rabbitmq
     container_name: rabbitmq
     networks:
-    - roboshop
+      - roboshop
     environment:
     - RABBITMQ_DEFAULT_USER=roboshop
     - RABBITMQ_DEFAULT_PASS=roboshop123
@@ -72,7 +75,7 @@ services:
     image: payment:v1
     container_name: payment
     networks:
-    - roboshop
+      - roboshop
     depends_on: 
     - cart
     - user
@@ -81,7 +84,7 @@ services:
     image: web:v1
     container_name: web
     networks:
-    - roboshop
+      - roboshop
     ports:
     - "8080:80"
     depends_on:
