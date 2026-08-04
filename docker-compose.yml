@@ -1,8 +1,11 @@
 networks:
   default:
-    external:
+    internal:
       name: roboshop
-  
+
+#internal --> Docker Compose automatically creates the network when you run docker compose up and automatically deletes it when you run docker compose down.Scope: It is designed specifically for the containers defined inside that single docker-compose.yml file.
+#external --> Docker Compose will not create or delete this network. It expects the network to already exist on the host machine (usually created manually via docker network create network_name).Scope: This is used so that multiple completely separate projects or standalone containers can connect to each other and communicate. If you run docker compose down, the containers stop, but the external network stays alive.
+#if u dont mention ---> internal: ---> by default it uses internal
 services:
   mongodb:
     image: mongodb:v1
@@ -10,7 +13,7 @@ services:
     networks:
     - roboshop
   
-  catalogue:
+  catalogue:  
     image: catalogue:v1
     container_name: catalogue
     networks:
