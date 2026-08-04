@@ -39,7 +39,38 @@ services:
     depends_on:
       - redis
       - mongodb
-    
+      
+  mysql:
+    image: mysql:v1
+    container_name: mysql
+    networks:
+    - roboshop
+
+#if u dont give container-name docker creates automatically like roboshop-docker-cataloge:v1 like that give by default
+
+  shipping:
+    image: shipping:v1
+    container_name: shipping
+    networks:
+    - roboshop
+    depends_on: 
+    - mysql
+
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq
+    networks:
+    - roboshop
+    environment:
+    - RABBITMQ_DEFAULT_USER=roboshop
+    - RABBITMQ_DEFAULT_PASS=roboshop123
+
+  payment:
+    image: payment:v1
+    container_name: payment
+    networks:
+    - roboshop
+
   web:
     image: web:v1
     container_name: web
@@ -52,17 +83,4 @@ services:
     - user
     - cart
     - shipping
-      
-  mysql:
-    image: mysql:v1
-    container_name: mysql
-
-#if u dont give container-name docker creates automatically like roboshop-docker-cataloge:v1 like that give by default
-
-  shipping:
-    image: shipping:v1
-    container_name: shipping
-    networks:
-    - roboshop
-    depends_on: 
-    - mysql
+    - payment
