@@ -2,7 +2,7 @@ networks:
   roboshop:
     external: true
 
-volumes:
+volumes:   #equalent to docker volume create mongodb etc...
   mongodb:
     name: mongodb
   redis:
