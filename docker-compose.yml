@@ -2,11 +2,11 @@ networks:
   roboshop:
     external: true
 
-volumes:
- - mongodb
- - redis
- - mysql
- - rabbitmq
+# volumes:
+#  - mongodb
+#  - redis
+#  - mysql
+#  - rabbitmq
 
 services:
   mongodb:
