@@ -49,6 +49,11 @@ services:
     container_name: mysql
     networks:
       - roboshop
+    environment:
+    - DB_HOST=mysql
+    - MYSQL_USER=shipping
+    - MYSQL_PASSWORD=RoboShop@1
+    - MYSQL_DATABASE=cities
 
 #if u dont give container-name docker creates automatically like roboshop-docker-cataloge:v1 like that give by default
 
