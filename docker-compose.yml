@@ -8,12 +8,13 @@ volumes:   #equalent to docker volume create mongodb etc...
   redis:
     name: redis
   mysql:
-    name: remysqldis
+    name: mysql
   rabbitmq:
     name: rabbitmq
 
 services:
   mongodb:
+    build: ./mongodb
     image: mongodb:v1
     container_name: mongodb
     networks:
@@ -24,6 +25,9 @@ services:
         type: volume
   
   catalogue:  
+    build:
+      context: ./cataloge
+      dockerfile: Dockerfile
     image: catalogue:v1
     container_name: catalogue
     networks:
