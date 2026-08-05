@@ -26,7 +26,7 @@ services:
   
   catalogue:  
     build:
-      context: ./cataloge
+      context: ./catalogue
       dockerfile: Dockerfile
     image: catalogue:v1
     container_name: catalogue
